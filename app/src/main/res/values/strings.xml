@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HitList</string>
+    <string name="button_addHitActivity">Add Target Name</string>
+    <string name="hint_hitTitle">Hit Title</string>
+</resources>
