@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">HitList</string>
-    <string name="button_addHitActivity">Add Target Name</string>
-    <string name="hint_hitTitle">Hit Title</string>
+    <string name="button_addTask">Add Target Name</string>
+    <string name="hint_taskTitle">Target Name</string>
+    <string name="hint_taskDescription">Description </string>
+    <string name="menu_addTask">Add</string>
 </resources>
