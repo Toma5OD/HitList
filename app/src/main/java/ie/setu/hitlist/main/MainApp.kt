@@ -6,14 +6,15 @@ package ie.setu.hitlist.main
 */
 
 import android.app.Application
-import ie.setu.hitlist.models.HitModel
+import ie.setu.hitlist.models.HitMemStore
 import timber.log.Timber
 import timber.log.Timber.i
 
 
 class MainApp : Application() {
 
-    val tasks = ArrayList<HitModel>()
+//  val tasks = ArrayList<HitModel>()
+val tasks = HitMemStore()
 
     override fun onCreate() {
         super.onCreate()

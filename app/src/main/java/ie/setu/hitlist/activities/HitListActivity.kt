@@ -8,10 +8,12 @@ import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import ie.setu.hitlist.R
 import ie.setu.hitlist.databinding.ActivityHitListBinding
+import ie.setu.hitlist.adapters.HitListener
 import ie.setu.hitlist.adapters.HitAdapter
 import ie.setu.hitlist.main.MainApp
+import ie.setu.hitlist.models.HitModel
 
-class HitListActivity : AppCompatActivity() {
+class HitListActivity : AppCompatActivity(), HitListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityHitListBinding
@@ -29,7 +31,8 @@ class HitListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = HitAdapter(app.tasks)
+//      binding.recyclerView.adapter = HitAdapter(app.tasks)
+        binding.recyclerView.adapter = HitAdapter(app.tasks.findAll(),this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -47,5 +50,10 @@ class HitListActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onHitClick(task: HitModel) {
+        val launcherIntent = Intent(this, HitActivity::class.java)
+        startActivityForResult(launcherIntent,0)
     }
 }
