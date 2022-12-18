@@ -2,7 +2,10 @@ package ie.setu.hitlist.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import com.google.android.material.snackbar.Snackbar
+import ie.setu.hitlist.R
 import ie.setu.hitlist.databinding.ActivityHitBinding
 import ie.setu.hitlist.models.HitModel
 import ie.setu.hitlist.main.MainApp
@@ -22,6 +25,9 @@ class HitActivity : AppCompatActivity() {
         //inflate layout using binding class
         binding = ActivityHitBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        // In order to present the toolbar - we must explicitly enable it
+        binding.toolbarAdd.title = title
+        setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp    // initialise mainApp (2)
         i("Hit Activity Started..")
@@ -44,5 +50,17 @@ class HitActivity : AppCompatActivity() {
                     .show()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_hittask, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_cancel -> { finish() }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

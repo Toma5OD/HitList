@@ -3,17 +3,13 @@ package ie.setu.hitlist.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import ie.setu.hitlist.R
 import ie.setu.hitlist.databinding.ActivityHitListBinding
-import ie.setu.hitlist.databinding.CardHittaskBinding
+import ie.setu.hitlist.adapters.HitAdapter
 import ie.setu.hitlist.main.MainApp
-import ie.setu.hitlist.models.HitModel
 
 class HitListActivity : AppCompatActivity() {
 
@@ -24,6 +20,7 @@ class HitListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHitListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        // In order to present the toolbar - we must explicitly enable it
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
 
@@ -50,32 +47,5 @@ class HitListActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-}
-
-class HitAdapter constructor(private var tasks: List<HitModel>) :
-    RecyclerView.Adapter<HitAdapter.MainHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
-        val binding = CardHittaskBinding
-            .inflate(LayoutInflater.from(parent.context), parent, false)
-
-        return MainHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: MainHolder, position: Int) {
-        val task = tasks[holder.adapterPosition]
-        holder.bind(task)
-    }
-
-    override fun getItemCount(): Int = tasks.size
-
-    class MainHolder(private val binding : CardHittaskBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(task: HitModel) {
-            binding.taskTitle.text = task.title
-            binding.description.text = task.description
-        }
     }
 }
