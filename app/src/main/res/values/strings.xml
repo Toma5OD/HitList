@@ -5,4 +5,6 @@
     <string name="hint_taskDescription">Description </string>
     <string name="menu_addTask">Add</string>
     <string name="menu_cancelTask">Cancel</string>
+    <string name="enter_hitTask_title">Please enter a task title</string>
+    <string name="save_task"> Save Task</string>
 </resources>

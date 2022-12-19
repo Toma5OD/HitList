@@ -54,6 +54,15 @@ class HitListActivity : AppCompatActivity(), HitListener {
 
     override fun onHitClick(task: HitModel) {
         val launcherIntent = Intent(this, HitActivity::class.java)
+        // passing the task to the actvity, enabled via the parcelable mechanism
+        launcherIntent.putExtra("task_edit", task)
         startActivityForResult(launcherIntent,0)
+    }
+
+    // This is another lifecycle event. This function is triggered when an activity
+    // we have started finishes.
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        binding.recyclerView.adapter?.notifyDataSetChanged()
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }
