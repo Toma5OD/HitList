@@ -1,12 +1,17 @@
 package ie.setu.hitlist.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import ie.setu.hitlist.R
 import ie.setu.hitlist.databinding.ActivityHitBinding
+import ie.setu.hitlist.helpers.showImagePicker
 import ie.setu.hitlist.models.HitModel
 import ie.setu.hitlist.main.MainApp
 import timber.log.Timber
@@ -19,6 +24,7 @@ class HitActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHitBinding
     var task = HitModel()
     lateinit var app: MainApp // ref to the mainApp object (1)
+    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +36,8 @@ class HitActivity : AppCompatActivity() {
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
 
+        registerImagePickerCallback()   // initialise the image picker callback func
+
         app = application as MainApp    // initialise mainApp (2)
         i("Hit Activity Started..")
 
@@ -38,15 +46,18 @@ class HitActivity : AppCompatActivity() {
             task = intent.extras?.getParcelable("task_edit")!!
             binding.taskTitle.setText(task.title)
             binding.description.setText(task.description)
-            binding.btnAdd.setText(R.string.save_task)
+            binding.btnAdd.setText(R.string.save_target)
+            Picasso.get()
+                .load(task.image)
+                .into(binding.taskImage)
         }
 
-        binding.btnAdd.setOnClickListener() {
+        binding.btnAdd.setOnClickListener {
             task.title = binding.taskTitle.text.toString()
             task.description = binding.description.text.toString()
             if(task.title.isEmpty()) {    
                 Snackbar
-                    .make(it, R.string.enter_hitTask_title, Snackbar.LENGTH_LONG)
+                    .make(it, R.string.enter_hitTarget_title, Snackbar.LENGTH_LONG)
                     .show()
                     } else {
                 if (edit) {
@@ -58,6 +69,10 @@ class HitActivity : AppCompatActivity() {
                 setResult(RESULT_OK)
                 finish()
             }
+        }
+            binding.chooseImage.setOnClickListener {
+            i("Select image")
+            showImagePicker(imageIntentLauncher)    // trigger the image picker
         }
     }
 
@@ -71,5 +86,25 @@ class HitActivity : AppCompatActivity() {
             R.id.item_cancel -> { finish() }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun registerImagePickerCallback() {
+        imageIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when(result.resultCode){
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Result ${result.data!!.data}")
+                            // Only recovering uri when the result Code is RESULT_OK
+                            task.image = result.data!!.data!!
+                            Picasso.get()
+                                .load(task.image)
+                                .into(binding.taskImage)
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
     }
 }

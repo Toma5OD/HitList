@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">HitList</string>
-    <string name="button_addTask">Add Target Name</string>
-    <string name="hint_taskTitle">Target Name</string>
+    <string name="button_addTask">Add Target Profile</string>
+    <string name="hint_targetTitle">Target Name</string>
     <string name="hint_taskDescription">Description </string>
-    <string name="menu_addTask">Add</string>
-    <string name="menu_cancelTask">Cancel</string>
-    <string name="enter_hitTask_title">Please enter a task title</string>
-    <string name="save_task"> Save Task</string>
+    <string name="menu_addTarget">Add</string>
+    <string name="menu_cancelTarget">Cancel</string>
+    <string name="enter_hitTarget_title">Please enter a target name</string>
+    <string name="save_target"> Save Target</string>
+    <string name="button_addImage"> Add Target Image </string>
+    <string name="select_target_image">Select Target image</string>
 </resources>
