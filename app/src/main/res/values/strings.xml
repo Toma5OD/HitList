@@ -7,8 +7,13 @@
     <string name="menu_cancelTarget">Cancel</string>
     <string name="enter_hitTarget_title">Please enter a target name</string>
     <string name="save_target"> Save Target</string>
+    <string name="button_addRating">Add Hit Target</string>
     <!-- Image Strings -->
     <string name="button_addImage"> Add Target Image </string>
     <string name="select_target_image">Select Target image</string>
     <string name="change_target_image">Change Target image</string>
+    <!-- Radio Button Strings -->
+    <string name="easy">Easy Hit</string>
+    <string name="hard">Hard Hit</string>
+    <string name="very_hard">Very Hard Hit</string>
 </resources>

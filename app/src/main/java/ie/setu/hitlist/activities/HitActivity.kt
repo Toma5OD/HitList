@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.net.Uri
+import android.widget.RadioButton
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
@@ -39,7 +40,7 @@ class HitActivity : AppCompatActivity() {
 
         registerImagePickerCallback()   // initialise the image picker callback func
 
-        app = application as MainApp    // initialise mainApp (2)
+        app = this.application as MainApp    // initialise mainApp (2)
         i("Hit Activity Started..")
 
         if(intent.hasExtra("target_edit")) {
@@ -59,6 +60,22 @@ class HitActivity : AppCompatActivity() {
         binding.btnAdd.setOnClickListener {
             target.title = binding.targetTitle.text.toString()
             target.description = binding.description.text.toString()
+
+            val rgRating: String = if (binding.rgRating.checkedRadioButtonId == R.id.easyBtn) {
+                "Easy Hit"
+            } else if(binding.rgRating.checkedRadioButtonId == R.id.hardBtn) {
+                "Hard Hit"
+            } else "Very Hard Hit"
+            
+            target.rating = rgRating
+//          target.rating = binding.rgRating.toString()
+//          app.hitStore.create(HitModel(rating = rgRating))
+            i("Difficulty Rating $rgRating")
+
+//            val checkedRatingButtonId = binding.rgRating.checkedRadioButtonId
+//            val rating = findViewById<RadioButton>(checkedRatingButtonId)
+//            target.rating = binding.rgRating.toString()
+
             if(target.title.isEmpty()) {    
                 Snackbar
                     .make(it, R.string.enter_hitTarget_title, Snackbar.LENGTH_LONG)

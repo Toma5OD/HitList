@@ -1,5 +1,6 @@
 package ie.setu.hitlist.models
 
+import timber.log.Timber
 import timber.log.Timber.i
 
 var lastId = 0L
@@ -22,17 +23,19 @@ class HitMemStore: HitStore {
         logAll()
     }
 
-    fun update(target: HitModel) {
+    override fun update(target: HitModel) {
         var foundTarget: HitModel? = targets.find { t -> t.id == target.id }
         if (foundTarget != null) {
             foundTarget.title = target.title
             foundTarget.description = target.description
+            foundTarget.rating = target.rating
             foundTarget.image = target.image
             logAll()
         }
     }
 
     fun logAll() {
+        Timber.v("** Hit List **")
         targets.forEach{ i("${it}")}
     }
 }

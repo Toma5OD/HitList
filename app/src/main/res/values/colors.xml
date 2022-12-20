@@ -10,4 +10,6 @@
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#000000</color>
+    <color name="lightGray">#2DA3AAAE</color>
+    <color name="customRedError">#D3FA0000</color>
 </resources>

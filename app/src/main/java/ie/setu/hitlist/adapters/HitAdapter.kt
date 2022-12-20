@@ -38,6 +38,7 @@ class HitAdapter constructor(private var targets: List<HitModel>,
         fun bind(target: HitModel, listener: HitListener) {
             binding.targetTitle.text = target.title
             binding.description.text = target.description
+            binding.rgRating.text = target.rating
             Picasso.get().load(target.image).resize(200,200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onHitClick(target) }
         }

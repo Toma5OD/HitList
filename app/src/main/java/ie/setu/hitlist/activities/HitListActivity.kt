@@ -30,7 +30,7 @@ class HitListActivity : AppCompatActivity(), HitListener {
         setSupportActionBar(binding.toolbar)
 
         // Retrieving and storing a reference to the MainApp object
-        app = application as MainApp
+        app = this.application as MainApp
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
