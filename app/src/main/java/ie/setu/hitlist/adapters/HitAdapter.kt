@@ -4,40 +4,42 @@ import android.view.LayoutInflater
 import android.view.OnReceiveContentListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ie.setu.hitlist.databinding.CardHittaskBinding
+import com.squareup.picasso.Picasso
+import ie.setu.hitlist.databinding.CardHittargetBinding
 import ie.setu.hitlist.models.HitModel
 
-// interface will represent click events on the task Card.
+// interface will represent click events on the target Card.
 interface HitListener {
-    fun onHitClick(task: HitModel)
+    fun onHitClick(target: HitModel)
 }
 
 // Adapter - accepts and installs an event handler based on the interface
-class HitAdapter constructor(private var tasks: List<HitModel>,
+class HitAdapter constructor(private var targets: List<HitModel>,
                              private val listener: HitListener) :
     RecyclerView.Adapter<HitAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
-        val binding = CardHittaskBinding
+        val binding = CardHittargetBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
 
         return MainHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
-        val task = tasks[holder.adapterPosition]
-        holder.bind(task, listener)
+        val target = targets[holder.adapterPosition]
+        holder.bind(target, listener)
     }
 
-    override fun getItemCount(): Int = tasks.size
+    override fun getItemCount(): Int = targets.size
 
-    class MainHolder(private val binding : CardHittaskBinding) :
+    class MainHolder(private val binding : CardHittargetBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(task: HitModel, listener: HitListener) {
-            binding.taskTitle.text = task.title
-            binding.description.text = task.description
-            binding.root.setOnClickListener { listener.onHitClick(task) }
+        fun bind(target: HitModel, listener: HitListener) {
+            binding.targetTitle.text = target.title
+            binding.description.text = target.description
+            Picasso.get().load(target.image).resize(200,200).into(binding.imageIcon)
+            binding.root.setOnClickListener { listener.onHitClick(target) }
         }
     }
 }

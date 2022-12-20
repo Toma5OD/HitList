@@ -10,28 +10,29 @@ internal fun getId(): Long {
 
 class HitMemStore: HitStore {
 
-    val tasks = ArrayList<HitModel>()
+    val targets = ArrayList<HitModel>()
 
     override fun findAll(): List<HitModel> {
-        return tasks
+        return targets
     }
 
-    override fun create(task: HitModel) {
-        task.id = getId()
-        tasks.add(task)
+    override fun create(target: HitModel) {
+        target.id = getId()
+        targets.add(target)
         logAll()
     }
 
-    fun update(task: HitModel) {
-        var foundTask: HitModel? = tasks.find { t -> t.id == task.id }
-        if (foundTask != null) {
-            foundTask.title = task.title
-            foundTask.description = task.description
+    fun update(target: HitModel) {
+        var foundTarget: HitModel? = targets.find { t -> t.id == target.id }
+        if (foundTarget != null) {
+            foundTarget.title = target.title
+            foundTarget.description = target.description
+            foundTarget.image = target.image
             logAll()
         }
     }
 
     fun logAll() {
-        tasks.forEach{ i("${it}")}
+        targets.forEach{ i("${it}")}
     }
 }

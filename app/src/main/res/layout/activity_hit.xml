@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <EditText
-                    android:id="@+id/taskTitle"
+                    android:id="@+id/targetTitle"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_margin="8dp"
@@ -51,7 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_margin="8dp"
-                    android:hint="@string/hint_taskDescription"
+                    android:hint="@string/hint_targetDescription"
                     android:inputType="text"
                     android:maxLength="25"
                     android:maxLines="1"
@@ -70,7 +70,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp"/>
                 <ImageView
-                    android:id="@+id/taskImage"
+                    android:id="@+id/targetImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:srcCompat="@mipmap/ic_launcher"/>
@@ -83,7 +83,7 @@
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
                     android:stateListAnimator="@null"
-                    android:text="@string/button_addTask"
+                    android:text="@string/button_addTarget"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
             </LinearLayout>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ie.setu.hitlist">
-
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
+        android:usesCleartextTraffic="true"
         android:name="ie.setu.hitlist.main.MainApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,5 +21,4 @@
         </activity>
         <activity android:name=".activities.HitActivity" />
     </application>
-
 </manifest>

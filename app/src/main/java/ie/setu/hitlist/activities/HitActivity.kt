@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.net.Uri
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
@@ -22,7 +23,7 @@ class HitActivity : AppCompatActivity() {
     // ActivityHitBinding augmented class needed to access diff View
     // objects on a particular layout
     private lateinit var binding: ActivityHitBinding
-    var task = HitModel()
+    var target = HitModel()
     lateinit var app: MainApp // ref to the mainApp object (1)
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
 
@@ -41,30 +42,33 @@ class HitActivity : AppCompatActivity() {
         app = application as MainApp    // initialise mainApp (2)
         i("Hit Activity Started..")
 
-        if(intent.hasExtra("task_edit")) {
+        if(intent.hasExtra("target_edit")) {
             edit = true
-            task = intent.extras?.getParcelable("task_edit")!!
-            binding.taskTitle.setText(task.title)
-            binding.description.setText(task.description)
+            target = intent.extras?.getParcelable("target_edit")!!
+            binding.targetTitle.setText(target.title)
+            binding.description.setText(target.description)
             binding.btnAdd.setText(R.string.save_target)
             Picasso.get()
-                .load(task.image)
-                .into(binding.taskImage)
+                .load(target.image)
+                .into(binding.targetImage)
+            if (target.image != Uri.EMPTY) {
+                binding.chooseImage.setText(R.string.change_target_image)
+            }
         }
 
         binding.btnAdd.setOnClickListener {
-            task.title = binding.taskTitle.text.toString()
-            task.description = binding.description.text.toString()
-            if(task.title.isEmpty()) {    
+            target.title = binding.targetTitle.text.toString()
+            target.description = binding.description.text.toString()
+            if(target.title.isEmpty()) {    
                 Snackbar
                     .make(it, R.string.enter_hitTarget_title, Snackbar.LENGTH_LONG)
                     .show()
                     } else {
                 if (edit) {
-                    app.tasks.update(task.copy())
+                    app.targets.update(target.copy())
                 } else {
-                    app.tasks.create(task.copy()) // use mainApp (3)
-                    i("add Button Pressed: $task.title")
+                    app.targets.create(target.copy()) // use mainApp (3)
+                    i("add Button Pressed: $target.title")
                 }
                 setResult(RESULT_OK)
                 finish()
@@ -77,7 +81,7 @@ class HitActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_hittask, menu)
+        menuInflater.inflate(R.menu.menu_hittarget, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -97,11 +101,13 @@ class HitActivity : AppCompatActivity() {
                         if (result.data != null) {
                             i("Got Result ${result.data!!.data}")
                             // Only recovering uri when the result Code is RESULT_OK
-                            task.image = result.data!!.data!!
+                            target.image = result.data!!.data!!
                             Picasso.get()
-                                .load(task.image)
-                                .into(binding.taskImage)
-                        } // end of if
+                                .load(target.image)
+                                .into(binding.targetImage)
+                        // when an image is changed, also change the label
+                            binding.chooseImage.setText(R.string.change_target_image)
+                        }
                     }
                     RESULT_CANCELED -> { } else -> { }
                 }

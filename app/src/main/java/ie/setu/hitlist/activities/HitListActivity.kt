@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import ie.setu.hitlist.R
 import ie.setu.hitlist.databinding.ActivityHitListBinding
@@ -17,6 +19,7 @@ class HitListActivity : AppCompatActivity(), HitListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityHitListBinding
+    private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,14 +29,18 @@ class HitListActivity : AppCompatActivity(), HitListener {
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
 
-        // Retrieving and storing a reference to the MainApp object (for future use!)
+        // Retrieving and storing a reference to the MainApp object
         app = application as MainApp
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-//      binding.recyclerView.adapter = HitAdapter(app.tasks)
-        binding.recyclerView.adapter = HitAdapter(app.tasks.findAll(),this)
+//      binding.recyclerView.adapter = HitAdapter(app.targets)
+        binding.recyclerView.adapter = HitAdapter(app.targets.findAll(),this)
+    
+    registerRefreshCallback()
     }
+
+    
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -46,23 +53,23 @@ class HitListActivity : AppCompatActivity(), HitListener {
             R.id.item_add -> {
                 // expose intent to permit activity to be launched
                 val launcherIntent = Intent(this, HitActivity::class.java)
-                startActivityForResult(launcherIntent,0)
+                refreshIntentLauncher.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onHitClick(task: HitModel) {
+    override fun onHitClick(target: HitModel) {
         val launcherIntent = Intent(this, HitActivity::class.java)
-        // passing the task to the actvity, enabled via the parcelable mechanism
-        launcherIntent.putExtra("task_edit", task)
-        startActivityForResult(launcherIntent,0)
+        // passing the target to the actvity, enabled via the parcelable mechanism
+        launcherIntent.putExtra("target_edit", target)
+        refreshIntentLauncher.launch(launcherIntent)
     }
 
-    // This is another lifecycle event. This function is triggered when an activity
-    // we have started finishes.
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        binding.recyclerView.adapter?.notifyDataSetChanged()
-        super.onActivityResult(requestCode, resultCode, data)
+    // Register the callback
+    private fun registerRefreshCallback() {
+        refreshIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { binding.recyclerView.adapter?.notifyDataSetChanged() }
     }
 }
