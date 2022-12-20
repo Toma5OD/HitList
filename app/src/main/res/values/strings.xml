@@ -4,6 +4,7 @@
     <string name="hint_targetTitle">Target Name</string>
     <string name="hint_targetDescription">Description </string>
     <string name="menu_addTarget">Add</string>
+    <string name="button_deleteTarget">Delete Target</string>
     <string name="menu_cancelTarget">Cancel</string>
     <string name="enter_hitTarget_title">Please enter a target name</string>
     <string name="save_target"> Save Target</string>

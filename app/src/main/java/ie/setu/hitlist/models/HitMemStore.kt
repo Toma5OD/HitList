@@ -34,6 +34,16 @@ class HitMemStore: HitStore {
         }
     }
 
+    override fun delete(target: HitModel) {
+        val targetsList = findAll() as java.util.ArrayList<HitModel>
+        var foundTarget: HitModel? = targetsList.find { t -> t.id == target.id }
+        if (foundTarget != null) {
+            targets.remove(target)
+            i("Target: ${targets} removed")
+            logAll()
+        }
+    }
+
     fun logAll() {
         Timber.v("** Hit List **")
         targets.forEach{ i("${it}")}

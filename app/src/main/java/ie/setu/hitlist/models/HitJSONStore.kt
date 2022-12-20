@@ -6,6 +6,7 @@ import com.google.gson.*
 import com.google.gson.reflect.TypeToken
 import ie.setu.hitlist.helpers.*
 import timber.log.Timber
+import timber.log.Timber.i
 import java.lang.reflect.Type
 import java.util.*
 
@@ -54,6 +55,15 @@ class HitJSONStore(private val context: Context) : HitStore {
             foundTarget.image = target.image
         }
         serialize()
+    }
+
+    override fun delete(target: HitModel) {
+        val targetsList = findAll() as ArrayList<HitModel>
+        var foundTarget: HitModel? = targetsList.find { t -> t.id == target.id }
+        if (foundTarget != null) {
+            targets.remove(target)
+            i("Target: ${targets} removed")
+        }
     }
 
     private fun serialize() {

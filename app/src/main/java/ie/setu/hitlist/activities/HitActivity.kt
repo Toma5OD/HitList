@@ -95,7 +95,16 @@ class HitActivity : AppCompatActivity() {
             i("Select image")
             showImagePicker(imageIntentLauncher)    // trigger the image picker
         }
+        
+        binding.deleteTargetbtn.setOnClickListener() {
+            i("delete target button pressed")
+            app.targets.delete(target)
+            setResult(RESULT_OK)
+            finish()
+        }
     }
+
+    
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_hittarget, menu)
