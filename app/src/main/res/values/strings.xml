@@ -17,4 +17,7 @@
     <string name="easy">Easy Hit</string>
     <string name="hard">Hard Hit</string>
     <string name="very_hard">Very Hard Hit</string>
+
+    <string name="btnTakePhoto">Take Picture</string>
+
 </resources>
