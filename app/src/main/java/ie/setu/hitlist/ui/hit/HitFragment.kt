@@ -139,32 +139,5 @@ class HitFragment : Fragment(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-//        hitViewModel.getHitTarget(args.targetid)
     }
-
-
-//    private fun registerImagePickerCallback() {
-//        imageIntentLauncher =
-//            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-//            { result ->
-//                when (result.resultCode) {
-//                    AppCompatActivity.RESULT_OK -> {
-//                        if (result.data != null) {
-//                            Timber.i("Got Result ${result.data!!.data}")
-//                            // Only recovering uri when the result Code is RESULT_OK
-//                            target.image = result.data!!.data!!
-//                            Picasso.get()
-//                                .load(target.image)
-//                                .into(fragBinding.targetImage)
-//                            // when an image is changed, also change the label
-//                            fragBinding.chooseImage.setText(R.string.change_target_image)
-//                        }
-//                    }
-//                    AppCompatActivity.RESULT_CANCELED -> {
-//                    }
-//                    else -> { }
-//                }
-//            }
-//    }
-
 }

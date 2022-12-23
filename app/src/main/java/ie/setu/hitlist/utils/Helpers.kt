@@ -2,7 +2,10 @@ package ie.setu.hitlist.utils
 
 import android.app.AlertDialog
 import android.widget.Toast
+import android.graphics.Color
 import androidx.fragment.app.FragmentActivity
+import com.makeramen.roundedimageview.RoundedTransformationBuilder
+import com.squareup.picasso.Transformation
 import ie.setu.hitlist.R
 
 fun createLoader(activity: FragmentActivity) : AlertDialog {
@@ -27,3 +30,11 @@ fun hideLoader(loader: AlertDialog) {
     if (loader.isShowing)
         loader.dismiss()
 }
+
+fun customTransformation() : Transformation =
+    RoundedTransformationBuilder()
+        .borderColor(Color.WHITE)
+        .borderWidthDp(2F)
+        .cornerRadiusDp(35F)
+        .oval(false)
+        .build()
