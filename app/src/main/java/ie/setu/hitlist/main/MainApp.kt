@@ -6,7 +6,7 @@ package ie.setu.hitlist.main
 */
 
 import android.app.Application
-import ie.setu.hitlist.models.HitManager
+// import ie.setu.hitlist.models.HitManager
 import ie.setu.hitlist.models.HitStore
 import timber.log.Timber
 

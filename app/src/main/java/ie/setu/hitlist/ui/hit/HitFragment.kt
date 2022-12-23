@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -20,7 +21,8 @@ import ie.setu.hitlist.helpers.showImagePicker
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import ie.setu.hitlist.HitEditFragmentArgs
-
+import ie.setu.hitlist.ui.auth.LoggedInViewModel
+import ie.setu.hitlist.ui.list.HitListViewModel
 
 class HitFragment : Fragment(), View.OnClickListener {
 
@@ -28,6 +30,8 @@ class HitFragment : Fragment(), View.OnClickListener {
     private val fragBinding get() = _fragBinding!!
     //private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var hitViewModel: HitViewModel
+    private val loggedInViewModel : LoggedInViewModel by activityViewModels()
+    private val hitListViewModel: HitListViewModel by activityViewModels()
 //    private val args by navArgs<Hit>()
     var target = HitModel()
 
@@ -56,32 +60,7 @@ class HitFragment : Fragment(), View.OnClickListener {
             status?.let { render(status) }
         })
 
-        fragBinding.btnAdd.setOnClickListener {
-            target.title = fragBinding.targetTitle.text.toString()
-            target.description = fragBinding.description.text.toString()
-
-            val rgRating: String = if (fragBinding.rgRating.checkedRadioButtonId == R.id.easyBtn) {
-                "Easy"
-            } else if(fragBinding.rgRating.checkedRadioButtonId == R.id.hardBtn) {
-                "Hard"
-            } else "Very Hard"
-            target.rating = rgRating
-            Timber.i("Difficulty Rating $rgRating")
-
-            if(target.title.isEmpty()) {
-                Snackbar
-                    .make(it, R.string.enter_hitTarget_title, Snackbar.LENGTH_LONG)
-                    .show()
-            } else {
-                hitViewModel.addHitTarget(target.copy())
-                Timber.i("add Button Pressed: $target.title")
-                findNavController().navigate(R.id.hitListFragment)
-            }
-        }
-
-
-
-//        addNewTargetButtonListener(fragBinding)
+        addNewTargetButtonListener(fragBinding)
 
         fragBinding.btnPhoto.setOnClickListener {
             Timber.i("Take Photo")
@@ -105,25 +84,26 @@ class HitFragment : Fragment(), View.OnClickListener {
 
     fun addNewTargetButtonListener(layout: FragmentHitBinding) {
         layout.btnAdd.setOnClickListener {
-            target.title = fragBinding.targetTitle.text.toString()
-            target.description = fragBinding.description.text.toString()
+            val title = fragBinding.targetTitle.text.toString()
+            val description = fragBinding.description.text.toString()
 
             val rgRating: String = if (fragBinding.rgRating.checkedRadioButtonId == R.id.easyBtn) {
                 "Easy"
             } else if(fragBinding.rgRating.checkedRadioButtonId == R.id.hardBtn) {
                 "Hard"
             } else "Very Hard"
-            target.rating = rgRating
+            val rating = rgRating
             Timber.i("Difficulty Rating $rgRating")
 
-            if(target.title.isEmpty()) {
+            if(title.isEmpty()) {
                 Snackbar
                     .make(it, R.string.enter_hitTarget_title, Snackbar.LENGTH_LONG)
                     .show()
             } else {
-                hitViewModel.addHitTarget(target.copy())
+                hitViewModel.addHitTarget(loggedInViewModel.liveFirebaseUser, HitModel(title = title,
+                    description = description, rating = rating,
+                    email = loggedInViewModel.liveFirebaseUser.value?.email!!))
                 Timber.i("add Button Pressed: $target.title")
-                findNavController().navigate(R.id.hitListFragment)
             }
         }
     }

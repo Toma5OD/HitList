@@ -1,11 +1,20 @@
 package ie.setu.hitlist.models
 
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseUser
 
 interface HitStore {
-    fun findAll(): List<HitModel>
-    fun findById(id: Long) : HitModel?
-    fun create(target: HitModel)
-    fun update(target: HitModel)
-    fun delete(target: HitModel)
+    fun findAll(targetList: MutableLiveData<List<HitModel>>)
+    fun findAll(userid: String, targetList: MutableLiveData<List<HitModel>>)
+    fun findById(userid: String, targetid: String, taarget: MutableLiveData<HitModel>)
+    fun create(firebaseUser: MutableLiveData<FirebaseUser>, target: HitModel)
+    fun update(userid: String, targetid: String, target: HitModel)
+    fun delete(userid: String, targetid: String)
 }
+
+//     fun findAll(): List<HitModel>
+//     fun findById(id: Long) : HitModel?
+//     fun create(target: HitModel)
+//     fun update(target: HitModel)
+//     fun delete(target: HitModel)
+// }

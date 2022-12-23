@@ -5,7 +5,8 @@ package ie.setu.hitlist.ui.hit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ie.setu.hitlist.models.HitManager
+import com.google.firebase.auth.FirebaseUser
+import ie.setu.hitlist.firebase.FirebaseDBManager
 import ie.setu.hitlist.models.HitModel
 
 class HitViewModel: ViewModel() {
@@ -20,17 +21,12 @@ class HitViewModel: ViewModel() {
     val observableStatus: LiveData<Boolean>
         get() = status
 
-    fun addHitTarget(target: HitModel) {
+    fun addHitTarget(firebaseUser: MutableLiveData<FirebaseUser>, target: HitModel) {
         status.value = try {
-            HitManager.create(target)
+            FirebaseDBManager.create(firebaseUser, target)
             true
         } catch (e: IllegalArgumentException) {
             false
         }
     }
-
-    fun getHitTarget(id: Long) {
-        target.value = HitManager.findById(id)
-    }
-
 }

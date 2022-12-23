@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -20,6 +21,7 @@ import ie.setu.hitlist.models.HitModel
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import ie.setu.hitlist.ui.auth.LoggedInViewModel
 import ie.setu.hitlist.utils.*
 import timber.log.Timber
 
@@ -30,8 +32,9 @@ class HitListFragment : Fragment(), HitClickListener {
     lateinit var app: MainApp // ref to mainApp object (1)
     private var _fragBinding: FragmentHitListBinding? = null
     private val fragBinding get() = _fragBinding!!
-    private lateinit var hitListViewModel:  HitListViewModel
     lateinit var loader : AlertDialog
+    private val loggedInViewModel : LoggedInViewModel by activityViewModels()
+    private val hitListViewModel: HitListViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,17 +44,21 @@ class HitListFragment : Fragment(), HitClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View? {
-        loader = createLoader(requireActivity())
         _fragBinding = FragmentHitListBinding.inflate(inflater, container, false)
+        loader = createLoader(requireActivity())
         val view = fragBinding.root
 
         // setting up linear layout manager to display list of hit targets
 
         fragBinding.recyclerView.layoutManager = LinearLayoutManager(activity)
-        Timber.i("Called ViewModelProvider.get")
-        hitListViewModel = ViewModelProvider(this).get(HitListViewModel::class.java)
-        // observe public live data, when targets changes we call render.
-        hitListViewModel.observableTargetList.observe(viewLifecycleOwner, Observer { targets ->
+        fragBinding.fab.setOnClickListener{
+            val action = HitListFragmentDirections.actionHitListFragmentToHitFragment()
+            findNavController().navigate(action)
+        }
+        showLoader(loader,"Downloading Hit List")
+
+        hitListViewModel.observableTargetList.observe(viewLifecycleOwner, Observer {
+                targets ->
             targets?.let { render(targets as ArrayList<HitModel>) }
             hideLoader(loader)
             checkSwipeRefresh()
@@ -64,6 +71,8 @@ class HitListFragment : Fragment(), HitClickListener {
                 showLoader(loader,"Deleting Target")
                 val adapter = fragBinding.recyclerView.adapter as HitAdapter
                 adapter.removeAt(viewHolder.adapterPosition)
+                hitListViewModel.delete(hitListViewModel.liveFirebaseUser.value?.uid!!,
+                (viewHolder.itemView.tag as HitModel).uid!!)
                 hideLoader(loader)
             }
         }
@@ -78,11 +87,6 @@ class HitListFragment : Fragment(), HitClickListener {
         val itemTouchEditHelper = ItemTouchHelper(swipeEditHandler)
         itemTouchEditHelper.attachToRecyclerView(fragBinding.recyclerView)
 
-        val fab: FloatingActionButton = fragBinding.fab
-        fab.setOnClickListener {
-            val action = HitListFragmentDirections.actionHitListFragmentToHitFragment()
-            findNavController().navigate(action)
-        }
         return view
     }
 
@@ -90,6 +94,7 @@ class HitListFragment : Fragment(), HitClickListener {
         fragBinding.swiperefresh.setOnRefreshListener {
             fragBinding.swiperefresh.isRefreshing = true
             showLoader(loader,"Downloading Hit List")
+            hitListViewModel.load()
         }
     }
 
@@ -122,7 +127,7 @@ class HitListFragment : Fragment(), HitClickListener {
     }
 
     override fun onHitClick(target: HitModel) {
-        val action = HitListFragmentDirections.actionHitListFragmentToHitEditFragment(target.id)
+        val action = HitListFragmentDirections.actionHitListFragmentToHitEditFragment(target.uid!!)
         findNavController().navigate(action)
     }
 
@@ -134,14 +139,14 @@ class HitListFragment : Fragment(), HitClickListener {
 
     override fun onResume() {
         super.onResume()
-        hitListViewModel.load()
+        showLoader(loader,"Downloading HitList")
+        loggedInViewModel.liveFirebaseUser.observe(viewLifecycleOwner, Observer { firebaseUser ->
+            if (firebaseUser != null) {
+                hitListViewModel.liveFirebaseUser.value = firebaseUser
+                hitListViewModel.load()
+            }
+        })
 
     }
 
-    // Register the callback
-//    private fun registerRefreshCallback() {
-//        refreshIntentLauncher =
-//            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-//            { loadHitTargets() }
-//    }
 }

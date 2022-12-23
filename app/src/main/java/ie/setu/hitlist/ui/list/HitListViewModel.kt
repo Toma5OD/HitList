@@ -4,7 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ie.setu.hitlist.models.HitManager
+import com.google.firebase.auth.FirebaseUser
+import ie.setu.hitlist.firebase.FirebaseDBManager
 import ie.setu.hitlist.models.HitModel
 import timber.log.Timber
 
@@ -16,6 +17,8 @@ class HitListViewModel : ViewModel() {
     // expose the hit target list with get accessor
     val observableTargetList: LiveData<List<HitModel>>
         get() = targetList
+    
+    var liveFirebaseUser = MutableLiveData<FirebaseUser>()
 
     // call load func when we initialise
     init { load()
@@ -24,11 +27,21 @@ class HitListViewModel : ViewModel() {
 
     fun load() {
         try {
-            targetList.value = HitManager.findAll()
-            Timber.i("Retrofit Success : $targetList.value")
+            FirebaseDBManager.findAll(liveFirebaseUser.value?.uid!!, targetList)
+            Timber.i("Hit Target Load Success : ${targetList.value.toString()}")
         }
         catch (e: Exception) {
             Timber.i("Retrofit Error : $e.message")
+        }
+    }
+
+    fun delete(userid: String, id: String) {
+        try {
+            FirebaseDBManager.delete(userid, id)
+            Timber.i("Delete Success of $id by $userid")
+        }
+        catch (e: Exception) {
+            Timber.i("Delete Error : $e.message")
         }
     }
 }

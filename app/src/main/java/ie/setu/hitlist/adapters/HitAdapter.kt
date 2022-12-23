@@ -41,7 +41,7 @@ class HitAdapter(private var targets: ArrayList<HitModel>,
 
         fun bind(target: HitModel, listener: HitClickListener) {
             // update target data element with the individual target that is passed to main holder class
-            binding.root.tag = target.id
+            binding.root.tag = target.uid
             binding.target = target
             binding.imageIcon.setImageResource(R.mipmap.ic_launcher_round)
             binding.root.setOnClickListener { listener.onHitClick(target) }

@@ -63,6 +63,6 @@
             app:destination="@id/hitListFragment" />
         <argument
             android:name="targetid"
-            app:argType="long" />
+            app:argType="string" />
     </fragment>
 </navigation>
