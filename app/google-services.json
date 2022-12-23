@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "558498873491",
+    "project_id": "hitlist-mobile",
+    "storage_bucket": "hitlist-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:558498873491:android:17e2b5e92cee6584c4cd66",
+        "android_client_info": {
+          "package_name": "ie.setu.hitlist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "558498873491-0kp6m70arr5e0ub7uaut95ts7jdrc7cm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0yd0VvVNLWKa8MRSqcTN3Jmi6vtqTCio"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "558498873491-0kp6m70arr5e0ub7uaut95ts7jdrc7cm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
