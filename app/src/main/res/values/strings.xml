@@ -4,7 +4,8 @@
     <string name="hint_targetTitle">Target Name</string>
     <string name="hint_targetDescription">Description </string>
     <string name="menu_addTarget">Add</string>
-    <string name="button_deleteTarget">Delete Target</string>
+    <string name="menu_deleteTarget">Delete</string>
+    <string name="menu_saveTarget">Save</string>
     <string name="menu_cancelTarget">Cancel</string>
     <string name="enter_hitTarget_title">Please enter a target name</string>
     <string name="save_target"> Save Target</string>
@@ -13,11 +14,37 @@
     <string name="button_addImage"> Add Target Image </string>
     <string name="select_target_image">Select Target image</string>
     <string name="change_target_image">Change Target image</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="button_takePhoto">Camera</string>
+    <string name="btnTakePhoto">Take Picture</string>
     <!-- Radio Button Strings -->
     <string name="easy">Easy Hit</string>
     <string name="hard">Hard Hit</string>
     <string name="very_hard">Very Hard Hit</string>
+    <!-- menu res -->
+    <string name="action_hitList">Target List</string>
+    <string name="action_hit">New Target</string>
 
-    <string name="btnTakePhoto">Take Picture</string>
+    <string name="action_camera">Camera</string>
+    <!-- Nav Drawer Support -->
+    <string name="nav_header_title">HitList</string>
+    <string name="nav_header_subtitle">Making Assasination Fun</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_login">Login</string>
+    <string name="action_register">Register</string>
+    <string name="group_access">Account</string>
+
+    <!--    -->
+    <string name="action_share">Share</string>
+    <string name="action_send">Send</string>
+    <string name="group_communicate">Communicate</string>
+
+    <!-- Nav Drawer About -->
+    <string name="action_about">About Us</string>
+    <string name="aboutus_title">Android Dev - Assignment Two - Tomas O Dalaigh</string>
+    <string name="aboutus_message">HitList makes taking out targets easier and more enjoyable than ever.
+    No more will you have to worry about losing your target list or misplacing a target photo or location as it\'s now all kept in this super helpful app.
+    The info is also easily shared to allow transfer of target information to different covert organisations and militia groups.
+    HitList makes assisnation fun again.</string>
 
 </resources>

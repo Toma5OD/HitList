@@ -1,11 +1,11 @@
 package ie.setu.hitlist.adapters
 
 import android.view.LayoutInflater
-import android.view.OnReceiveContentListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import ie.setu.hitlist.databinding.CardHittargetBinding
+import ie.setu.hitlist.fragments.HitListFragment
 import ie.setu.hitlist.models.HitModel
 
 // interface will represent click events on the target Card.
@@ -14,17 +14,20 @@ interface HitListener {
 }
 
 // Adapter - accepts and installs an event handler based on the interface
-class HitAdapter constructor(private var targets: List<HitModel>,
-                             private val listener: HitListener) :
+class HitAdapter(private var targets: List<HitModel>,
+                 private val listener: HitListFragment
+) :
     RecyclerView.Adapter<HitAdapter.MainHolder>() {
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
+        // initialise view
         val binding = CardHittargetBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
-
-        return MainHolder(binding)
+        // return holder view
+        return MainHolder(binding = binding)
     }
-
+    
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val target = targets[holder.adapterPosition]
         holder.bind(target, listener)
@@ -41,6 +44,7 @@ class HitAdapter constructor(private var targets: List<HitModel>,
             binding.rgRating.text = target.rating
             Picasso.get().load(target.image).resize(200,200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onHitClick(target) }
+
         }
     }
 }

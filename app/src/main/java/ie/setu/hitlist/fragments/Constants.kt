@@ -1,4 +1,4 @@
-package ie.setu.hitlist.activities
+package ie.setu.hitlist.fragments
 
 import android.Manifest
 

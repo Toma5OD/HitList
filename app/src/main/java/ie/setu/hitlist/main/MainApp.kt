@@ -16,19 +16,12 @@ import timber.log.Timber.i
 
 class MainApp : Application() {
 
-//  val targets = ArrayList<HitModel>()
-//  val targets = HitMemStore()
-//  lateinit var hitStore: HitMemStore
     lateinit var targets: HitStore
 
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
-        // hitStore = HitMemStore()
         targets = HitJSONStore(applicationContext)
         i("Hit App started")
-        // targets.create(HitModel(0, "TODO one...", "About One"))
-        // targets.create(HitModel(1, "TODO two...", "About Three"))
-        // targets.create(HitModel(2, "TODO three...", "About Three"))
     }
 }

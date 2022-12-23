@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    tools:context="ie.setu.hitlist.activities.HitActivity">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/hitFragment"
+    tools:context=".fragments.HitFragment">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
             android:background="@color/colorAccent"
             android:fitsSystemWindows="true"
             app:elevation="0dip"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarAdd"
                 android:layout_width="match_parent"
@@ -99,11 +99,11 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:background="@color/colorAccent"
-                    android:paddingBottom="8dp"
                     android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
                     android:text="@string/button_addImage"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
                 <ImageView
                     android:id="@+id/targetImage"
                     android:layout_width="match_parent"
@@ -121,23 +121,19 @@
                     android:text="@string/button_addTarget"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
-                <ImageButton
-                    android:id="@+id/deleteTargetbtn"
-                    android:layout_width="wrap_content"
+                <Button
+                    android:id="@+id/btnPhoto"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    app:srcCompat="@android:drawable/ic_menu_delete"
-                    app:tint="@color/customRedError" />
-                <TextView
-                    android:id="@+id/DeleteTargetText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="8dp"
-                    android:text="Delete Target"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:layout_margin="16dp"
+                    android:background="@color/colorAccent"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:stateListAnimator="@null"
+                    android:text="@string/take_photo"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

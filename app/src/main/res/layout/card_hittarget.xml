@@ -40,9 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/targetTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.052"
-            app:layout_constraintStart_toEndOf="@+id/imageIcon"
+            app:layout_constraintStart_toStartOf="@+id/targetTitle"
             app:layout_constraintTop_toBottomOf="@id/targetTitle"
             tools:text="A Description" />
         <TextView
@@ -50,11 +48,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/description"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.048"
-            app:layout_constraintStart_toEndOf="@+id/imageIcon"
-            app:layout_constraintTop_toBottomOf="@id/description"
-            android:text="Difficulty: " />
+            android:text="Difficulty: "
+            app:layout_constraintStart_toStartOf="@+id/description"
+            app:layout_constraintTop_toBottomOf="@id/description" />
         <TextView
             android:id="@+id/rgRating"
             android:layout_width="wrap_content"

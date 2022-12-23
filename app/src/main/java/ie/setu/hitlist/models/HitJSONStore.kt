@@ -64,6 +64,7 @@ class HitJSONStore(private val context: Context) : HitStore {
             targets.remove(target)
             i("Target: ${targets} removed")
         }
+        serialize()
     }
 
     private fun serialize() {
@@ -90,6 +91,7 @@ class UriParser : JsonDeserializer<Uri>,JsonSerializer<Uri> {
         return Uri.parse(json?.asString)
     }
 
+    // Utility to format a java class (pretty printing it)
     override fun serialize(
         src: Uri?,
         typeOfSrc: Type?,

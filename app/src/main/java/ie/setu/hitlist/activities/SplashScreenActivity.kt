@@ -19,7 +19,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         handler = Handler()
         handler.postDelayed({
-            val intent = Intent(this,HitListActivity::class.java)
+            val intent = Intent(this,Home::class.java)
             startActivity(intent)
             finish()
         }, 3000) // set delay 3sec before opening HitActivity
