@@ -6,16 +6,14 @@
     app:startDestination="@id/hitListFragment">
     <fragment
         android:id="@+id/hitListFragment"
-        android:name="ie.setu.hitlist.fragments.HitListFragment"
-        android:label="Targets List"
+        android:name="ie.setu.hitlist.ui.list.HitListFragment"
+        android:label="Target List"
         tools:layout="@layout/fragment_hit_list">
         <action
             android:id="@+id/action_hitListFragment_to_hitFragment"
             app:destination="@id/hitFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popUpTo="@id/hitFragment"
-            app:popUpToInclusive="false"/>
+            app:exitAnim="@anim/nav_default_exit_anim"/>
 
         <action
             android:id="@+id/action_hitListFragment_to_aboutusFragment"
@@ -23,11 +21,14 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popUpTo="@id/hitListFragment" />
+        <action
+            android:id="@+id/action_hitListFragment_to_hitEditFragment"
+            app:destination="@id/hitEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/hitFragment"
-        android:name="ie.setu.hitlist.fragments.HitFragment"
-        android:label="Do It Yourself"
+        android:name="ie.setu.hitlist.ui.hit.HitFragment"
+        android:label="HitList"
         tools:layout="@layout/fragment_hit" >
         <action
             android:id="@+id/action_hitFragment_to_hitListFragment"
@@ -37,16 +38,10 @@
         <action
             android:id="@+id/action_hitFragment_to_cameraFragment"
             app:destination="@id/cameraFragment" />
-        <argument
-            android:name="targetadd"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_hitFragment_to_hitListFragment2"
-            app:destination="@id/hitListFragment" />
     </fragment>
     <fragment
         android:id="@+id/cameraFragment"
-        android:name="ie.setu.hitlist.fragments.CameraFragment"
+        android:name="ie.setu.hitlist.ui.camera.CameraFragment"
         android:label="Take Photo"
         tools:layout="@layout/fragment_camera" >
         <action
@@ -55,7 +50,19 @@
     </fragment>
     <fragment
         android:id="@+id/aboutusFragment"
-        android:name="ie.setu.hitlist.fragments.AboutUsFragment"
+        android:name="ie.setu.hitlist.ui.about.AboutFragment"
         android:label="About"
         tools:layout="@layout/fragment_aboutus" />
+    <fragment
+        android:id="@+id/hitEditFragment"
+        android:name="ie.setu.hitlist.HitEditFragment"
+        android:label="hit_edit_fragment"
+        tools:layout="@layout/hit_edit_fragment" >
+        <action
+            android:id="@+id/action_hitEditFragment_to_hitListFragment"
+            app:destination="@id/hitListFragment" />
+        <argument
+            android:name="targetid"
+            app:argType="long" />
+    </fragment>
 </navigation>

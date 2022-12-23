@@ -6,22 +6,16 @@ package ie.setu.hitlist.main
 */
 
 import android.app.Application
-import ie.setu.hitlist.models.HitJSONStore
-import ie.setu.hitlist.models.HitMemStore
-import ie.setu.hitlist.models.HitModel
+import ie.setu.hitlist.models.HitManager
 import ie.setu.hitlist.models.HitStore
 import timber.log.Timber
-import timber.log.Timber.i
 
 
 class MainApp : Application() {
 
-    lateinit var targets: HitStore
-
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
-        targets = HitJSONStore(applicationContext)
-        i("Hit App started")
+        Timber.i("Hit App started")
     }
 }

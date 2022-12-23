@@ -33,9 +33,13 @@ class HitJSONStore(private val context: Context) : HitStore {
         }
     }
 
-    override fun findAll(): MutableList<HitModel> {
+    override fun findAll(): List<HitModel> {
         logAll()
         return targets
+    }
+
+    override fun findById(id: Long): HitModel? {
+        TODO("Not yet implemented")
     }
 
     override fun create(target: HitModel) {
@@ -90,7 +94,6 @@ class UriParser : JsonDeserializer<Uri>,JsonSerializer<Uri> {
     ): Uri {
         return Uri.parse(json?.asString)
     }
-
     // Utility to format a java class (pretty printing it)
     override fun serialize(
         src: Uri?,

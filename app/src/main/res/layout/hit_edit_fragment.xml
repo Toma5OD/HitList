@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="hittargetvm"
+            type="ie.setu.hitlist.ui.edit.HitEditViewModel"/>
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/editTargetLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.edit.HitEditFragment">
+
+
+        <EditText
+            android:id="@+id/editTitle"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/hint_targetTitle"
+            android:inputType="text"
+            android:maxLength="25"
+            android:maxLines="1"
+            android:text="@={hittargetvm.observableHitTarget.title}"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editDescription"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/hint_targetDescription"
+            android:inputType="text"
+            android:maxLength="25"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:text="@={hittargetvm.observableHitTarget.description}"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTitle" />
+
+        <TextView
+            android:id="@+id/difficultytv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:text="Select Assasination Difficulty Level"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editDescription" />
+
+        <RadioGroup
+            android:id="@+id/rgRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/difficultytv">
+
+            <RadioButton
+                android:id="@+id/easyBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:padding="8dp"
+                android:text="@string/easy" />
+
+            <RadioButton
+                android:id="@+id/veryHardBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/very_hard" />
+
+            <RadioButton
+                android:id="@+id/hardBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/hard" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/chooseImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/colorAccent"
+            android:text="@string/change_target_image"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rgRating" />
+
+        <ImageView
+            android:id="@+id/editImage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chooseImage"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+
+        <Button
+            android:id="@+id/editTargetButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/save_target"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/deleteTargetButton"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/deleteTargetButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/deleteTarget"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/editTargetButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
