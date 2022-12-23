@@ -31,10 +31,4 @@ class HitListViewModel : ViewModel() {
             Timber.i("Retrofit Error : $e.message")
         }
     }
-
-    // clean up resources when view model is detached or finished.
-//    override fun OnCleared() {
-//        super.onCleared()
-//        Timber.i("HitListViewModel destroyed!")
-//    }
 }

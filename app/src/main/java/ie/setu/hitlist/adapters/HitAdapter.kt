@@ -14,7 +14,7 @@ interface HitClickListener {
 }
 
 // Adapter - accepts and installs an event handler based on the interface
-class HitAdapter(private var targets: List<HitModel>,
+class HitAdapter(private var targets: ArrayList<HitModel>,
                  private val listener: HitClickListener) :
     RecyclerView.Adapter<HitAdapter.MainHolder>() {
 
@@ -22,6 +22,11 @@ class HitAdapter(private var targets: List<HitModel>,
         val binding = CardHittargetBinding    // initialise view
             .inflate(LayoutInflater.from(parent.context), parent, false)
         return MainHolder(binding = binding)    // return holder view
+    }
+
+    fun removeAt(position: Int) {
+        targets.removeAt(position)
+        notifyItemRemoved(position)
     }
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {

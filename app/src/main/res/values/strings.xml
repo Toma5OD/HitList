@@ -78,5 +78,6 @@
     <string name="emailpassword_title_text">Please Login Below</string>
     <string name="update">Update</string>
     <string name="delete">Delete</string>
+    <string name="messageLoading">Please wait while the Hit List Targets are loading...</string>
 
 </resources>
