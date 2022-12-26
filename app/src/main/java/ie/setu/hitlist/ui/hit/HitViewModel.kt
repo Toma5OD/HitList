@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
 import ie.setu.hitlist.firebase.FirebaseDBManager
+import ie.setu.hitlist.firebase.FirebaseImageManager
 import ie.setu.hitlist.models.HitModel
 
 class HitViewModel: ViewModel() {
@@ -23,6 +24,7 @@ class HitViewModel: ViewModel() {
 
     fun addHitTarget(firebaseUser: MutableLiveData<FirebaseUser>, target: HitModel) {
         status.value = try {
+            target.profilepic = FirebaseImageManager.imageUri.value.toString()
             FirebaseDBManager.create(firebaseUser, target)
             true
         } catch (e: IllegalArgumentException) {

@@ -85,4 +85,24 @@ object FirebaseDBManager: HitStore {
         database.updateChildren(childUpdate)
     }
 
+    fun updateImageRef(userid: String,imageUri: String) {
+
+        val userDonations = database.child("user-targets").child(userid)
+        val allDonations = database.child("targets")
+
+        userDonations.addListenerForSingleValueEvent(
+            object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {}
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.children.forEach {
+                        //Update Users imageUri
+                        it.ref.child("profilepic").setValue(imageUri)
+                        //Update all donations that match 'it'
+                        val donation = it.getValue(HitModel::class.java)
+                        allDonations.child(donation!!.uid!!)
+                            .child("profilepic").setValue(imageUri)
+                    }
+                }
+            })
+    }
 }

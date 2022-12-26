@@ -32,6 +32,8 @@ class FirebaseAuthManager(application: Application) {
             liveFirebaseUser.postValue(firebaseAuth!!.currentUser)
             loggedOut.postValue(false)
             errorStatus.postValue(false)
+            FirebaseImageManager.checkStorageForExistingProfilePic(
+                firebaseAuth!!.currentUser!!.uid)
         }
         configureGoogleSignIn()
     }
@@ -93,6 +95,8 @@ class FirebaseAuthManager(application: Application) {
 
     fun logOut() {
         firebaseAuth!!.signOut()
+        googleSignInClient.value!!.signOut()
+        Timber.i("User is now signed out")
         loggedOut.postValue(true)
         errorStatus.postValue(false)
     }

@@ -25,7 +25,7 @@
     <string name="very_hard">Very Hard Hit</string>
     <!-- menu res -->
     <string name="action_hitList">Target List</string>
-    <string name="action_hit">Add A Target</string>
+    <string name="action_hit">Add Target</string>
 
     <string name="action_camera">Camera</string>
     <!-- Nav Drawer Support -->
@@ -38,6 +38,7 @@
     <string name="action_share">Share</string>
     <string name="action_send">Send</string>
     <string name="group_communicate">Communicate</string>
+    <string name="select_profile_image">Select Profile Image</string>
 
     <!-- Nav Drawer About -->
     <string name="action_about">About Us</string>

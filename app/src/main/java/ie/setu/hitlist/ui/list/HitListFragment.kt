@@ -90,7 +90,7 @@ class HitListFragment : Fragment(), HitClickListener {
         return view
     }
 
-    fun setSwipeRefresh() {
+    private fun setSwipeRefresh() {
         fragBinding.swiperefresh.setOnRefreshListener {
             fragBinding.swiperefresh.isRefreshing = true
             showLoader(loader,"Downloading Hit List")
@@ -98,7 +98,7 @@ class HitListFragment : Fragment(), HitClickListener {
         }
     }
 
-    fun checkSwipeRefresh() {
+    private fun checkSwipeRefresh() {
         if (fragBinding.swiperefresh.isRefreshing)
             fragBinding.swiperefresh.isRefreshing = false
     }

@@ -47,7 +47,12 @@ class HitEditFragment: Fragment() {
             //findNavController().popBackStack()
         }
 
-
+        fragBinding.deleteTargetButton.setOnClickListener {
+            Timber.i("DELETE TARGET")
+            hitListViewModel.delete(loggedInViewModel.liveFirebaseUser.value?.uid!!,
+                hitEditViewModel.observableHitTarget.value?.uid!!)
+            findNavController().popBackStack()
+        }
         return view
     }
     private fun renderStatus(status : Boolean) {

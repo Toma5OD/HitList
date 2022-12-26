@@ -13,7 +13,8 @@ data class HitModel(
     var title: String = "",
     var description: String = "",
     var rating: String = "",
-    var email: String = "")
+    var email: String = "",
+    var profilepic: String = "")
     : Parcelable
 {
     @Exclude
@@ -23,7 +24,8 @@ data class HitModel(
             "title" to title,
             "description" to description,
             "rating" to rating,
-            "email" to email
+            "email" to email,
+            "profilepic" to profilepic
         )
     }
 }

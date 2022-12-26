@@ -2,11 +2,13 @@ package ie.setu.hitlist.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import ie.setu.hitlist.R
 import ie.setu.hitlist.databinding.CardHittargetBinding
 import ie.setu.hitlist.models.HitModel
+import ie.setu.hitlist.utils.customTransformation
 
 // interface will represent click events on the target Card.
 interface HitClickListener {
@@ -43,6 +45,11 @@ class HitAdapter(private var targets: ArrayList<HitModel>,
             // update target data element with the individual target that is passed to main holder class
             binding.root.tag = target.uid
             binding.target = target
+            Picasso.get().load(target.profilepic.toUri())
+                .resize(200, 200)
+                .transform(customTransformation())
+                .centerCrop()
+                .into(binding.imageIcon)
             binding.imageIcon.setImageResource(R.mipmap.ic_launcher_round)
             binding.root.setOnClickListener { listener.onHitClick(target) }
             binding.executePendingBindings() // force bindings to happen immediately
