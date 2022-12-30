@@ -14,6 +14,8 @@ class HitListViewModel : ViewModel() {
     // raw data accessing the hit model list
     private val targetList = MutableLiveData<List<HitModel>>()
 
+    var readOnly = MutableLiveData(false)
+
     // expose the hit target list with get accessor
     val observableTargetList: LiveData<List<HitModel>>
         get() = targetList
@@ -27,6 +29,7 @@ class HitListViewModel : ViewModel() {
 
     fun load() {
         try {
+            readOnly.value = false
             FirebaseDBManager.findAll(liveFirebaseUser.value?.uid!!, targetList)
             Timber.i("Hit Target Load Success : ${targetList.value.toString()}")
         }
@@ -44,4 +47,16 @@ class HitListViewModel : ViewModel() {
             Timber.i("Delete Error : $e.message")
         }
     }
+
+    fun loadAll() {
+        try {
+            readOnly.value = true
+            FirebaseDBManager.findAll(targetList)
+            Timber.i("LoadAll Success : ${targetList.value.toString()}")
+        }
+        catch (e: Exception) {
+            Timber.i("LoadAll Error : $e.message")
+        }
+    }
+
 }

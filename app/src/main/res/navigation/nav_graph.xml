@@ -56,7 +56,7 @@
     <fragment
         android:id="@+id/hitEditFragment"
         android:name="ie.setu.hitlist.HitEditFragment"
-        android:label="hit_edit_fragment"
+        android:label="Edit Target Details"
         tools:layout="@layout/hit_edit_fragment" >
         <action
             android:id="@+id/action_hitEditFragment_to_hitListFragment"

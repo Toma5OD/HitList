@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
@@ -90,22 +91,26 @@ class HitListFragment : Fragment(), HitClickListener {
         return view
     }
 
-    private fun setSwipeRefresh() {
+    fun setSwipeRefresh() {
         fragBinding.swiperefresh.setOnRefreshListener {
             fragBinding.swiperefresh.isRefreshing = true
             showLoader(loader,"Downloading Hit List")
-            hitListViewModel.load()
+            if(!hitListViewModel.readOnly.value!!) {
+                hitListViewModel.loadAll()
+            } else
+                hitListViewModel.load()
         }
     }
 
-    private fun checkSwipeRefresh() {
+    fun checkSwipeRefresh() {
         if (fragBinding.swiperefresh.isRefreshing)
             fragBinding.swiperefresh.isRefreshing = false
     }
 
     private fun render(targetList: ArrayList<HitModel>) {
         // create adapter passing in the list of targets
-        fragBinding.recyclerView.adapter = HitAdapter(targetList, this)
+        fragBinding.recyclerView.adapter = HitAdapter(targetList, this,
+                                        hitListViewModel.readOnly.value!!)
         if (targetList.isEmpty()) {
             fragBinding.recyclerView.visibility = View.GONE
             fragBinding.noTargetsFound.visibility = View.VISIBLE
@@ -118,6 +123,16 @@ class HitListFragment : Fragment(), HitClickListener {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_list, menu)
+
+        val item = menu.findItem(R.id.toggleDonations) as MenuItem
+        item.setActionView(R.layout.togglebutton_layout)
+        val toggleDonations: SwitchCompat = item.actionView.findViewById(R.id.toggleButton)
+        toggleDonations.isChecked = false
+
+        toggleDonations.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) hitListViewModel.loadAll()
+            else hitListViewModel.load()
+        }
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -128,7 +143,9 @@ class HitListFragment : Fragment(), HitClickListener {
 
     override fun onHitClick(target: HitModel) {
         val action = HitListFragmentDirections.actionHitListFragmentToHitEditFragment(target.uid!!)
-        findNavController().navigate(action)
+        if(!hitListViewModel.readOnly.value!!) {
+            findNavController().navigate(action)
+        }
     }
 
 

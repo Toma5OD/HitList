@@ -1,5 +1,6 @@
 package ie.setu.hitlist.ui.hit
 
+
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -26,6 +27,7 @@ import ie.setu.hitlist.HitEditFragmentArgs
 import ie.setu.hitlist.ui.auth.LoggedInViewModel
 import ie.setu.hitlist.ui.list.HitListViewModel
 
+
 class HitFragment : Fragment(), View.OnClickListener {
 
     private var _fragBinding: FragmentHitBinding? = null
@@ -36,12 +38,12 @@ class HitFragment : Fragment(), View.OnClickListener {
     private val hitListViewModel: HitListViewModel by activityViewModels()
     var target = HitModel()
 
-    var edit = false;
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Timber.i("Hit Fragment started...")
         setHasOptionsMenu(true)
+        registerImagePickerCallback()   // initialise the image picker callback func.
+
     }
 
 
@@ -65,7 +67,6 @@ class HitFragment : Fragment(), View.OnClickListener {
             showImagePicker(imageIntentLauncher)    // trigger the image picker
 
         }
-
         fragBinding.btnPhoto.setOnClickListener {
             Timber.i("Take Photo")
             val action = HitFragmentDirections.actionHitFragmentToCameraFragment()
@@ -96,7 +97,7 @@ class HitFragment : Fragment(), View.OnClickListener {
             } else if(fragBinding.rgRating.checkedRadioButtonId == R.id.hardBtn) {
                 "Hard"
             } else "Very Hard"
-            // val rating = rgRating
+//            val rating = rgRating
             Timber.i("Difficulty Rating $rgRating")
 
             if(title.isEmpty()) {
@@ -108,6 +109,7 @@ class HitFragment : Fragment(), View.OnClickListener {
                     description = description, rating = rgRating,
                     email = loggedInViewModel.liveFirebaseUser.value?.email!!))
                 Timber.i("add Button Pressed: $target.title")
+//                findNavController().navigate(R.id.hitListFragment)
             }
         }
     }
@@ -143,7 +145,9 @@ class HitFragment : Fragment(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
+//        hitViewModel.getHitTarget(args.targetid)
     }
+
 
     private fun registerImagePickerCallback() {
         imageIntentLauncher =
@@ -154,7 +158,10 @@ class HitFragment : Fragment(), View.OnClickListener {
                         if (result.data != null) {
                             Timber.i("Got Result ${result.data!!.data}")
                             // Only recovering uri when the result Code is RESULT_OK
+//                            target.image = result.data!!.data!!
                             Picasso.get()
+//                                .load(target.image)
+//                                .into(fragBinding.targetImage)
                             // when an image is changed, also change the label
                             fragBinding.chooseImage.setText(R.string.change_target_image)
                         }
@@ -167,3 +174,5 @@ class HitFragment : Fragment(), View.OnClickListener {
     }
 
 }
+
+

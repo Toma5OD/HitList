@@ -12,7 +12,25 @@ object FirebaseDBManager: HitStore {
     var database: DatabaseReference = FirebaseDatabase.getInstance().reference
 
     override fun findAll(targetList: MutableLiveData<List<HitModel>>) {
-        TODO("Not yet implemented")
+        database.child("targets")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                    Timber.i("Firebase error : ${error.message}")
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val localList = ArrayList<HitModel>()
+                    val children = snapshot.children
+                    children.forEach {
+                        val target = it.getValue(HitModel::class.java)
+                        localList.add(target!!)
+                    }
+                    database.child("targets")
+                        .removeEventListener(this)
+
+                    targetList.value = localList
+                }
+            })
     }
 
     override fun findAll(userid: String, targetList: MutableLiveData<List<HitModel>>) {
