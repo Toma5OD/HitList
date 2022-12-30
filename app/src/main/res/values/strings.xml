@@ -12,6 +12,7 @@
     <string name="button_addRating">Add Hit Target</string>
     <string name="deleteTarget">Delete</string>
     <string name="edit_hit">Edit Hit Target</string>
+    <string name="reset_password">Forgot Password</string>
     <!-- Image Strings -->
     <string name="button_addImage"> Add Target Image </string>
     <string name="select_target_image">Select Target image</string>
