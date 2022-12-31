@@ -6,25 +6,22 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import android.widget.ToggleButton
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.*
 import com.google.firebase.auth.FirebaseUser
-import com.squareup.picasso.Picasso
 import ie.setu.hitlist.R
 import ie.setu.hitlist.databinding.HomeBinding
 import ie.setu.hitlist.databinding.NavHeaderBinding
 import ie.setu.hitlist.ui.auth.LoggedInViewModel
 import ie.setu.hitlist.ui.auth.Login
-import ie.setu.hitlist.utils.customTransformation
 import ie.setu.hitlist.firebase.FirebaseImageManager
 import ie.setu.hitlist.utils.readImageUri
 import ie.setu.hitlist.helpers.showImagePicker
@@ -63,6 +60,12 @@ class Home : AppCompatActivity() {
 
         val navView = homeBinding.navView
         navView.setupWithNavController(navController)
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.Theme_HitList_NoActionBar) //when dark mode is enabled, we use the dark theme
+        } else {
+            setTheme(R.style.Theme_HitList)  //default app theme
+        }
     }
 
     public override fun onStart() {

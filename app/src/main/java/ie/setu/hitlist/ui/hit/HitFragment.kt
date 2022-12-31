@@ -1,6 +1,5 @@
 package ie.setu.hitlist.ui.hit
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -22,11 +21,8 @@ import timber.log.Timber
 import com.google.android.material.snackbar.Snackbar
 import ie.setu.hitlist.helpers.showImagePicker
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.navArgs
-import ie.setu.hitlist.HitEditFragmentArgs
 import ie.setu.hitlist.ui.auth.LoggedInViewModel
 import ie.setu.hitlist.ui.list.HitListViewModel
-
 
 class HitFragment : Fragment(), View.OnClickListener {
 
@@ -43,7 +39,6 @@ class HitFragment : Fragment(), View.OnClickListener {
         Timber.i("Hit Fragment started...")
         setHasOptionsMenu(true)
         registerImagePickerCallback()   // initialise the image picker callback func.
-
     }
 
 
@@ -145,7 +140,6 @@ class HitFragment : Fragment(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-//        hitViewModel.getHitTarget(args.targetid)
     }
 
 
@@ -158,10 +152,7 @@ class HitFragment : Fragment(), View.OnClickListener {
                         if (result.data != null) {
                             Timber.i("Got Result ${result.data!!.data}")
                             // Only recovering uri when the result Code is RESULT_OK
-//                            target.image = result.data!!.data!!
                             Picasso.get()
-//                                .load(target.image)
-//                                .into(fragBinding.targetImage)
                             // when an image is changed, also change the label
                             fragBinding.chooseImage.setText(R.string.change_target_image)
                         }

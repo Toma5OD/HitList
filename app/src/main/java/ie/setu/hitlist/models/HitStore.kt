@@ -11,10 +11,3 @@ interface HitStore {
     fun update(userid: String, targetid: String, target: HitModel)
     fun delete(userid: String, targetid: String)
 }
-
-//     fun findAll(): List<HitModel>
-//     fun findById(id: Long) : HitModel?
-//     fun create(target: HitModel)
-//     fun update(target: HitModel)
-//     fun delete(target: HitModel)
-// }

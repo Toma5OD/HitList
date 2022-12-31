@@ -2,8 +2,9 @@ package ie.setu.hitlist.ui.list
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.*
+import android.widget.ArrayAdapter
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -20,12 +21,11 @@ import ie.setu.hitlist.databinding.FragmentHitListBinding
 import ie.setu.hitlist.main.MainApp
 import ie.setu.hitlist.models.HitModel
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ie.setu.hitlist.ui.auth.LoggedInViewModel
 import ie.setu.hitlist.utils.*
 import timber.log.Timber
-
+import java.util.*
+import kotlin.collections.ArrayList
 
 class HitListFragment : Fragment(), HitClickListener {
 
@@ -133,6 +133,29 @@ class HitListFragment : Fragment(), HitClickListener {
             if (isChecked) hitListViewModel.loadAll()
             else hitListViewModel.load()
         }
+
+        val search = menu.findItem(R.id.search)
+        val searchView = search.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                //TODO
+                return true
+            }
+
+            // method is called whenever a user types/changes any text input
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                val searchText = newText!!.toLowerCase(Locale.getDefault())
+                if (searchText.isNotEmpty()) {
+                    //TODO
+                }
+
+                return false
+            }
+
+
+        })
+
         super.onCreateOptionsMenu(menu, inflater)
     }
 
