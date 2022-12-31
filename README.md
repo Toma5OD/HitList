@@ -1,7 +1,7 @@
 # Assignment - HitList App.
 Mobile Application Development - Assignment Two
 
-A mobile application created using Android Studio and written in Kotlin. It forms part of a submission for assignment two of Mobile Application Development module at [SETU](https://www.wit.ie/courses/hdip-computer-science-parttime).  
+This is a mobile application created using Android Studio and written in Kotlin. It forms part of a submission for assignment two of Mobile Application Development module at [SETU](https://www.wit.ie/courses/hdip-computer-science-parttime).  
 
 ---
 ## Features
