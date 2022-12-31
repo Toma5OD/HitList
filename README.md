@@ -40,7 +40,7 @@ The emulator responds by installing and running the application.
 The objective is to allow the user to complete targets and move between different activities with the least friction possible. 
 
 **Authentication** <br>
-Firebase Authentication does a lot of the heavy lifting in handling user registration and login. It provides back-end services, SDKs and ready made UI libraries. The firebase console is configured to authenticate users via basic auth and using their Google email account [1]. If a user forgets their password, they have the ability to reset via email verification link [11].  <br>
+Firebase Authentication handles the user registration and login. It provides back-end services, SDKs and ready made UI libraries. The firebase console is configured to authenticate users via basic auth and using their Google email account [1]. If a user forgets their password, they have the ability to reset via email verification link [11].  <br>
 <br>
 <img src="/app/src/images/pic1.png" width="200" height="325" /> <img src="/app/src/images/pic2.png" width="200" height="325" /> <br>
 <br>
@@ -172,7 +172,7 @@ After the image is taken successfully, the photo is saved to the file created pr
 
 
 **Splash Screen** <br>
-The Splash screen is the first screen visible to the user when the application is launched. It contains an progress bar with a welcome message [5]. Their are issues with this current commit and splash screen does not run. It is a work in progress. 
+The Splash screen is the first screen visible to the user when the application is launched. It contains an progress bar with a welcome message [5]. The splashscreen was removed from the most recent commit as it wasn't require and was demonstrated in my previous submission for this module but it is visible in the 12th commit.
 <br>
 <br>
 **Persistent Storage** <br>
