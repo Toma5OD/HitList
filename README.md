@@ -41,16 +41,16 @@ The objective is to allow the user to complete targets and move between differen
 
 **Authentication** <br>
 Firebase Authentication does a lot of the heavy lifting in handling user registration and login. It provides back-end services, SDKs and ready made UI libraries. The firebase console is configured to authenticate users via basic auth and using their Google email account [1]. If a user forgets their password, they have the ability to reset via email verification link [11].  <br>
-
+<br>
 <img src="/app/src/images/pic1.png" width="200" height="325" /> <img src="/app/src/images/pic2.png" width="200" height="325" /> <br>
-
+<br>
 **Navigation** <br>
 In app navigation is handled using the Jetpack Navigation Component. It handles the navigation between fragments via the navigation drawer. 
-
-<img src="/app/src/images/pic3" width="200" height="325" /> <br>
-
+<br>
+<img src="/app/src/images/pic3.png" width="200" height="325" /> <br>
+<br>
 The three main components of navigation [2]:
-
+<br>
 1. Nav Graph <br>
 All the navigation information is visualised via the *nav_graph*. It is an XML file that contains all of the apps destinations along with actions (arrows) that the user can take to navigate from one destination to another. It resides in the res directory.
 2. Nav Host <br>
@@ -64,19 +64,17 @@ fragBinding.fab.setOnClickListener{
             findNavController().navigate(action)
         }
 ```
-
-<br><img src="/app/src/images/pic5.png" width="750" height="475" />
 <br>
 
 **Fragments** 
 The use of fragment are used extensively throughout development. These are very useful as they are reusable and have their own lifecycles. When a user commits an action, for example creating a new target. The NavController handles the transaction by taking from the back stack allowing the user navigate backward to the list view activity [3].
 <br>
 **Recycler View**
-<br> <img src="/app/src/images/RecyclerView.png" width="200" height="325" /> <br>
+<br> <img src="/app/src/images/pic5.png" width="200" height="325" /> <br>
 **CameraX API** <br>
 CameraX is a Jetpack support library [4]. It provides a way to interface with the devices camera. Before the app can access the camera, it will prompt the user to permission to access the camera. <br>
-<img src="/app/src/images/pic7.png" width="185" height="325" /> <img src="/app/src/images/pic8" width="185" height="325" /> <br>
-
+<img src="/app/src/images/pic7.png" width="185" height="325" />
+<br>
 This function is implemented in the onCreate() method.
 
 ```
@@ -175,13 +173,14 @@ After the image is taken successfully, the photo is saved to the file created pr
 
 **Splash Screen** <br>
 The Splash screen is the first screen visible to the user when the application is launched. It contains an progress bar with a welcome message [5]. Their are issues with this current commit and splash screen does not run. It is a work in progress. 
-<br><img src="/app/src/images/pic4.PNG" width="185" height="325" />
+<br>
 <br>
 **Persistent Storage** <br>
 Early iterations of this app utilised read/write to JSON file. Contents could be viewed via device file explorer inside Android Studio. <br>
 <br>
+<br>
 **Toolbar Menu** <br>
-<img src="/app/src/images/pic5.png" width="185" height="325" />
+<img src="/app/src/images/pic8.png" width="185" height="325" />
 <br>
 
 ---
@@ -189,6 +188,8 @@ Early iterations of this app utilised read/write to JSON file. Contents could be
 The MVVM approach taken in this project is currently the industry-recognised arhictecture. It overcomes the drawbacks of the MVP and MVC design patterns [6]. From a developers point of view, it is easy to evaluate the structure as the business and presentaion logic (views/UI) is seperated from the user interface (view). Data is exposed in *HitModel* to the ViewModel via LiveData (observables). The view only observes and is notified of any changes in state. 
 
 Sharing data between fragments utilizes the  `byactivityViewModels()` method. It is particularly useful in support of multi-user application. It helps keep track of shared viewModels of across the entire scope of the entire application. This approcach increases the code maintainabity thus the DX. 
+
+<br><img src="/app/src/images/mvvm.png" width="750" height="475"/><br>
 
 ## References
 
